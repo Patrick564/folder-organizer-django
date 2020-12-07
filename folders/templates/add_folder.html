@@ -1,0 +1,27 @@
+{% extends 'base/folders_base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block body_main %}
+    <form method="post">
+        {% csrf_token %}
+
+        <input type="hidden" value="{{ request.user.id }}" name="{{ form.owner_id.html_name }}">
+        <p>Name</p>
+        <input type="text" name="name">
+        <p>Serie</p>
+        <input type="text" name="serie">
+        <p>From date</p>
+        <input type="text" name="from_date">
+        <p>To date</p>
+        <input type="text" name="to_date">
+        <p>From numeration</p>
+        <input type="text" name="from_numeration">
+        <p>To numeration</p>
+        <input type="text" name="to_numeration">
+        <p>Code</p>
+        <input type="text" name="code">
+
+        <input type="submit" value="Submit">
+    </form>
+{% endblock body_main %}

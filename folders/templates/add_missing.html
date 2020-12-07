@@ -1,0 +1,15 @@
+{% extends 'base/folders_base.html' %}
+
+{% block title %}Add missing{% endblock %}
+
+{% block body_main %}
+    <form method="post">
+        {% csrf_token %}
+
+        <input type="hidden" value="{{ view.kwargs.pk }}" name="{{ form.folder_id.html_name }}">
+        <p>Guide</p>
+        <input type="text" name="guide">
+
+        <input type="submit" value="Submit">
+    </form>
+{% endblock body_main %}

@@ -1,0 +1,14 @@
+{% extends 'base/folders_base.html' %}
+
+{% block title %}Update missing{% endblock %}
+
+{% block body_main %}
+    <form method="post">
+        {% csrf_token %}
+
+        
+        {{ form.as_p }}
+
+        <input type="submit" value="Submit">
+    </form>
+{% endblock body_main %}

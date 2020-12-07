@@ -1,0 +1,36 @@
+{% extends 'base/folders_base.html' %}
+
+{% block title %}Folder organizer{% endblock %}
+
+{% block body_main %}
+    {% if request.user.is_authenticated %}
+        <div>
+            {{ request.user.username }}
+        </div>
+    {% else %}
+        <div>
+            Registrate o inicia sesión primero
+        </div>
+    {% endif %}
+
+    {% if all_folders %}
+        <div>
+            {% for folder in all_folders %}
+                <div>
+                    {{ folder }}
+                </div>
+
+                <a href="{% url 'folders:update-folder' folder.id %}">Update</a>
+                <a href="{% url 'folders:add-missing' folder.id %}">Add missing</a>
+                <a href="{% url 'folders:update-missing' folder.id %}">Update missing</a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>
+            Ningún folder por ahora
+        </div>
+    {% endif %}
+    <div>
+        <a href="{% url 'folders:add-folder' %}">Create folder</a>
+    </div>
+{% endblock body_main %}

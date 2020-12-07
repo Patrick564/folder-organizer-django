@@ -1,0 +1,15 @@
+# Virtualenv and VSCode
+.venv/
+.vscode/
+
+# Python cache
+__pycache__/
+
+# SQLite
+db.sqlite3
+
+# Migrations
+[0-9]*.py
+
+# Enviroments variables
+local_settings.py
