@@ -7,13 +7,13 @@ class AddFolderForm(forms.ModelForm):
     class Meta():
         model = Folder
         fields = [
-            'owner_id',
+            'owner',
             'name',
             'serie',
             'from_date',
             'to_date',
-            'from_numeration',
-            'to_numeration',
+            'from_guide',
+            'to_guide',
             'code',
         ]
 
@@ -22,6 +22,6 @@ class AddMissingForm(forms.ModelForm):
     class Meta():
         model = Missing
         fields = [
-            'folder_id',
+            'folder',
             'guide',
         ]

@@ -6,7 +6,7 @@
     <form method="post">
         {% csrf_token %}
 
-        <input type="hidden" value="{{ request.user.id }}" name="{{ form.owner_id.html_name }}">
+        <input type="hidden" value="{{ request.user.id }}" name="{{ form.owner.html_name }}">
         <p>Name</p>
         <input type="text" name="name">
         <p>Serie</p>

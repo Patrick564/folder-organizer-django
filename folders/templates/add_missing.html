@@ -6,7 +6,7 @@
     <form method="post">
         {% csrf_token %}
 
-        <input type="hidden" value="{{ view.kwargs.pk }}" name="{{ form.folder_id.html_name }}">
+        <input type="hidden" value="{{ view.kwargs.pk }}" name="{{ form.folder.html_name }}">
         <p>Guide</p>
         <input type="text" name="guide">
 

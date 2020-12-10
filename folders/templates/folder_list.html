@@ -3,34 +3,50 @@
 {% block title %}Folder organizer{% endblock %}
 
 {% block body_main %}
-    {% if request.user.is_authenticated %}
+    <nav class="flex justify-between m-3 my-5 px-3">
         <div>
+        {% if request.user.is_authenticated %}
             {{ request.user.username }}
-        </div>
-    {% else %}
-        <div>
+        {% else %}
             Registrate o inicia sesión primero
+        {% endif %}
         </div>
-    {% endif %}
-
-    {% if all_folders %}
         <div>
-            {% for folder in all_folders %}
-                <div>
-                    {{ folder }}
+            <a href="{% url 'folders:add-folder' %}">Create folder</a>
+        </div>
+    </nav>
+    
+    <main class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 max-w-5xl m-5 mx-auto p-2">
+        {% for folder in all_folders %}
+            <div class="grid-rows-2 border rounded-lg border-blue-600 p-3">
+                <div class="grid sm:grid-cols-1 md:grid-cols-4 border-b">
+                    <div class="border-r">
+                        {{ folder.name }}
+                    </div>
+                    <div class="border-r">
+                        {{ folder.serie }}
+                    </div>
+                    <div class="border-r">
+                        {{ folder.from_date }}-{{ folder.to_date }}
+                        {{ folder.from_guide }}-{{ folder.to_guide }}
+                    </div>
+                    <div>
+                        {{ folder.code }}
+                    </div>
                 </div>
 
-                <a href="{% url 'folders:update-folder' folder.id %}">Update</a>
+                <div>
+                    extras de abajo!!
+                </div>
+
+                {% comment %} <a href="{% url 'folders:update-folder' folder.id %}">Update</a>
                 <a href="{% url 'folders:add-missing' folder.id %}">Add missing</a>
-                <a href="{% url 'folders:update-missing' folder.id %}">Update missing</a>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div>
-            Ningún folder por ahora
-        </div>
-    {% endif %}
-    <div>
-        <a href="{% url 'folders:add-folder' %}">Create folder</a>
-    </div>
+                <a href="{% url 'folders:update-missing' folder.id %}">Update missing</a> {% endcomment %}
+            </div>
+        {% empty %}
+            <div>
+                Ningún folder por ahora
+            </div>
+        {% endfor %}
+    </main>
 {% endblock body_main %}
