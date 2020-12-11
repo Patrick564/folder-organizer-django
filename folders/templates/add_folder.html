@@ -1,27 +1,67 @@
 {% extends 'base/folders_base.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}Add folder{% endblock %}
 
 {% block body_main %}
-    <form method="post">
-        {% csrf_token %}
+    <nav class="flex justify-between border-b-2 m-3 my-5 px-3 pb-3">
+        <div>
+        {% if request.user.is_authenticated %}
+            {{ request.user.username }}
+        {% else %}
+            Registrate o inicia sesión primero
+        {% endif %}
+        </div>
+        <div>
+            <a href="{% url 'folders:folder-list' %}">Back</a>
+        </div>
+    </nav>
 
-        <input type="hidden" value="{{ request.user.id }}" name="{{ form.owner.html_name }}">
-        <p>Name</p>
-        <input type="text" name="name">
-        <p>Serie</p>
-        <input type="text" name="serie">
-        <p>From date</p>
-        <input type="text" name="from_date">
-        <p>To date</p>
-        <input type="text" name="to_date">
-        <p>From numeration</p>
-        <input type="text" name="from_numeration">
-        <p>To numeration</p>
-        <input type="text" name="to_numeration">
-        <p>Code</p>
-        <input type="text" name="code">
+    <main class="grid grid-cols-1 max-w-md m-5 mx-auto p-2">
+        <form method="post" class="flex flex-col p-3 items-center border border-blue-500 rounded-lg">
+            {% csrf_token %}
 
-        <input type="submit" value="Submit">
-    </form>
+            <input type="hidden" value="{{ request.user.id }}" name="{{ form.owner.html_name }}">
+
+            <div class="flex flex-col p-3 justify-items border-b">
+                <label for="name" class="m-2">
+                    Name:
+                    <input class="border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent px-1" type="text" name="name" id="name">
+                </label>
+
+                <label for="serie" class="m-2">
+                    Serie:
+                    <input class="border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent px-1" type="text" name="serie" id="serie">
+                </label>
+
+                <label for="from_date" class="m-2">
+                    From date:
+                    <input class="border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent px-1" type="date" name="from_date" id="from_date">
+                </label>
+
+                <label for="to_date" class="m-2">
+                    To date:
+                    <input class="border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent px-1" type="date" name="to_date" id="to_date">
+                </label>
+
+                <label for="from_guide" class="m-2">
+                    From guide:
+                    <input class="border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent px-1" type="text" name="from_guide" id="from_guide">
+                </label>
+
+                <label for="to_guide" class="m-2">
+                    To guide
+                    <input class="border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent px-1" type="text" name="to_guide" id="to_guide">
+                </label>
+
+                <label for="code" class="m-2">
+                    Code
+                    <input class="border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent px-1" type="text" name="code" id="code">
+                </label>
+            </div>
+
+            <button class="bg-green-500 text-white border border-green-500 rounded-lg my-5 px-3 py-2" type="submit">
+                Add folder
+            </button>
+        </form>
+    </main>
 {% endblock body_main %}
