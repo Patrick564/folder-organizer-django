@@ -12,6 +12,7 @@ class Folder(models.Model):
     to_guide = models.CharField(max_length=15, blank=True, default=None)
     code = models.CharField(max_length=10, default='Incomplete')
     is_full = models.BooleanField(default=False)
+    color = models.CharField(max_length=10, default='white')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
