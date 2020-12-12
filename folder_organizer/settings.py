@@ -4,7 +4,8 @@ import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 
-from . import local_settings
+if os.getenv('DATABASE_URL') is not None:
+    from . import local_settings
 
 load_dotenv(find_dotenv(), verbose=True)
 
@@ -116,7 +117,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = '/accounts/login/'
