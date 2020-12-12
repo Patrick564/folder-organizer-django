@@ -4,7 +4,7 @@ import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 
-if os.getenv('DATABASE_URL') is not None:
+if os.getenv('DATABASE_URL') is None:
     from . import local_settings
 
 load_dotenv(find_dotenv(), verbose=True)
