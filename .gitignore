@@ -9,7 +9,6 @@ __pycache__/
 db.sqlite3
 
 # Migrations
-[0-9]*.py
 
 # Enviroments variables
 local_settings.py
