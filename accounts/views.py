@@ -8,4 +8,4 @@ class CreateAccountView(CreateView):
     model = User
     form_class = CreateUserForm
     template_name = 'create_account.html'
-    success_url = '/login/'
+    success_url = '/accounts/login/'
