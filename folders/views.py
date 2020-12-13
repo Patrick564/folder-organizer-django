@@ -40,13 +40,13 @@ class UpdateFolderView(LoginRequiredMixin, UpdateView):
         'code',
     ]
     template_name = 'update_folder.html'
-    success_url = '/folders'
+    success_url = '/folders/'
 
 
 class DeleteFolderView(LoginRequiredMixin, DeleteView):
     model = Folder
     template_name = 'delete_folder.html'
-    success_url = '/folders'
+    success_url = '/folders/'
 
 
 class MissingListView(ListView):
