@@ -17,7 +17,7 @@
     </nav>
 
     <main class="grid grid-cols-1 max-w-md m-5 mx-auto p-2">
-        <form method="post" class="flex flex-col p-3 items-center border border-blue-500 rounded-lg">
+        <form class="flex flex-col p-3 items-center border border-blue-500 rounded-lg" method="post">
             {% csrf_token %}
 
             <input type="hidden" value="{{ request.user.id }}" name="{{ form.owner.html_name }}">

@@ -1,0 +1,42 @@
+{% extends 'base/folders_base.html' %}
+
+{% block title %}Missing{% endblock %}
+
+{% block body_main %}
+    <nav class="flex justify-between border-b-2 m-3 my-5 px-3 pb-3">
+        <div>
+        {% if request.user.is_authenticated %}
+            {{ request.user.username }}
+        {% else %}
+            Registrate o inicia sesión primero
+        {% endif %}
+        </div>
+        <div>
+            <a href="{% url 'folders:folder-list' %}">Back</a>
+        </div>
+    </nav>
+
+    <main class="grid grid-cols-1 max-w-md m-5 mx-auto p-2">
+        <div class="flex flex-col p-3 items-center border border-blue-500 rounded-lg">
+            <div class="flex flex-col p-3 justify-items border-b">
+                {% for missing in all_missing %}
+                    {{ missing }}
+                    <form action="{% url 'folders:delete-missing' missing.id %}" method="post">
+                        {% csrf_token %}
+
+                        <button type="submit">
+                            Delete
+                        </button>
+                    </form>
+
+                {% empty %}
+                    <p>Empty</p>
+                {% endfor %}
+            </div>
+
+            <a href="{% url 'folders:update-missing' view.kwargs.pk %}" type="button">
+                Update
+            </a>
+        </div>
+    </main>
+{% endblock body_main %}

@@ -27,7 +27,7 @@
                         {{ folder.serie }}
                     </div>
                     <div class="p-2">
-                        {{ folder.from_date|date:'M-Y' }} to {{ folder.to_date|date:'M-Y' }}
+                        {{ folder.from_date|date:'M-Y'|default:'---' }} to {{ folder.to_date|date:'M-Y'|default:'---' }}
                     </div>
                     <div class="p-2">
                         {{ folder.from_guide }} to {{ folder.to_guide }}
@@ -38,26 +38,22 @@
                 </div>
 
                 <div class="flex justify-evenly inline-block mt-2 pb-1">
-                    <div class="relative inline-block justify-center text-sm">
-                        <button class="border border-yellow-400 rounded-lg p-1" type="button">
+                    <div class="text-sm justify-center">
+                        <a class="border border-yellow-400 rounded-lg p-1" href="{% url 'folders:missing-list' folder.id %}" type="button">
                             Missing
-                        </button>
+                        </a>
                     </div>
-                    <div class="text-sm">
-                        <button class="border border-blue-400 rounded-lg p-1" type="button">
-                            Edit
-                        </button>
+                    <div class="text-sm justify-center">
+                        <a class="border border-blue-400 rounded-lg p-1" href="{% url 'folders:update-folder' folder.id %}" type="button">
+                            Update
+                        </a>
                     </div>
-                    <div class="text-sm justify-center inline-flex">
-                        <button class="border border-red-400 rounded-lg p-1" type="button">
+                    <div class="text-sm justify-center">
+                        <a class="border border-red-400 rounded-lg p-1" href="{% url 'folders:delete-folder' folder.id %}" type="button">
                             Delete
-                        </button>
+                        </a>
                     </div>
                 </div>
-
-                {% comment %} <a href="{% url 'folders:update-folder' folder.id %}">Update</a>
-                <a href="{% url 'folders:add-missing' folder.id %}">Add missing</a>
-                <a href="{% url 'folders:update-missing' folder.id %}">Update missing</a> {% endcomment %}
             </div>
         {% empty %}
             <div>

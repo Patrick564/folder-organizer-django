@@ -3,11 +3,20 @@
 {% block title %}Update missing{% endblock %}
 
 {% block body_main %}
-    <form method="post">
-        {% csrf_token %}
+    <nav class="flex justify-between border-b-2 m-3 my-5 px-3 pb-3">
+        <div>
+        {% if request.user.is_authenticated %}
+            {{ request.user.username }}
+        {% else %}
+            Registrate o inicia sesión primero
+        {% endif %}
+        </div>
+        <div>
+            <a href="{% url 'folders:folder-list' %}">Back</a>
+        </div>
+    </nav>
 
-        {{ form.as_p }}
-
-        <input type="submit" value="Submit">
-    </form>
+    <main>
+        
+    </main>
 {% endblock body_main %}

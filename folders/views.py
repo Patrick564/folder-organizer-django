@@ -1,6 +1,7 @@
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
 
 from .forms import AddFolderForm, AddMissingForm
 from .models import Folder, Missing
@@ -17,10 +18,6 @@ class FolderListView(LoginRequiredMixin, ListView):
             owner_id=self.request.user.id
         )
 
-        # all_missing = Missing.objects.filter(
-        #     folder_id=self.request
-        # )
-
         return all_folders
 
 
@@ -34,28 +31,35 @@ class AddFolderView(LoginRequiredMixin, CreateView):
 class UpdateFolderView(LoginRequiredMixin, UpdateView):
     model = Folder
     fields = [
+        'name',
         'serie',
         'from_date',
         'to_date',
-        'from_numeration',
-        'to_numeration',
+        'from_guide',
+        'to_guide',
         'code',
     ]
     template_name = 'update_folder.html'
-    success_url = '/'
+    success_url = '/folders'
 
 
-# class MissingListView(ListView):
-#     model = Missing
-#     context_object_name = 'missing_by_folder'
-#     template_name = 'missing_list.html'
+class DeleteFolderView(LoginRequiredMixin, DeleteView):
+    model = Folder
+    template_name = 'delete_folder.html'
+    success_url = '/folders'
 
-#     def get_queryset(self):
-#         all_missing = Missing.objects.filter(
-#             folder_id=self.request.user.id
-#         )
 
-#         return all_missing
+class MissingListView(ListView):
+    model = Missing
+    context_object_name = 'all_missing'
+    template_name = 'missing_list.html'
+
+    def get_queryset(self):
+        all_missing = Missing.objects.filter(
+            folder=self.kwargs['pk']
+        )
+
+        return all_missing
 
 
 class AddMissingView(LoginRequiredMixin, CreateView):
@@ -72,3 +76,20 @@ class UpdateMissingView(LoginRequiredMixin, UpdateView):
     ]
     template_name = 'update_missing.html'
     success_url = '/'
+
+
+class DeleteMissingView(LoginRequiredMixin, DeleteView):
+    model = Missing
+
+    def delete(self, *args, **kwargs):
+        self.missing = self.get_object().folder
+        self.folder = Folder.objects.get(code=self.missing)
+
+        return super(DeleteMissingView, self).delete(*args, **kwargs)
+
+    def get_success_url(self):
+
+        return reverse(
+            'folders:missing-list',
+            kwargs={'pk': self.folder.id}
+        )

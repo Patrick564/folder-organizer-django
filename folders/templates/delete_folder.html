@@ -1,0 +1,38 @@
+{% extends 'base/folders_base.html' %}
+
+{% block title %}Folder organizer{% endblock %}
+
+{% block body_main %}
+    <nav class="flex justify-between border-b-2 m-3 my-5 px-3 pb-3">
+        <div>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'accounts:logout' %}">Logout</a>
+        {% else %}
+            Registrate o inicia sesión primero
+        {% endif %}
+        </div>
+        <div>
+            <a href="{% url 'folders:folder-list' %}">Cancel</a>
+        </div>
+    </nav>
+
+    <main class="grid grid-cols-1 max-w-md m-5 mx-auto p-2">
+        <form class="flex flex-col p-3 items-center border border-blue-500 rounded-lg" method="post">
+            {% csrf_token %}
+
+            <div class="flex flex-col p-3 justify-items border-b">
+                <div class="mb-2">
+                    <p>Are you sure you want to delete?</p>
+                </div>
+
+                <div class="text-center">
+                    Folder code: {{ object }}
+                </div>
+            </div>
+
+            <button class="bg-red-500 text-white border border-red-500 rounded-lg my-5 px-3 py-2" type="submit">
+                Delete
+            </button>
+        </form>
+    </main>
+{% endblock body_main %}
