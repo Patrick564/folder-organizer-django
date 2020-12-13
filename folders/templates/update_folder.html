@@ -5,14 +5,14 @@
 {% block body_main %}
     <nav class="flex justify-between border-b-2 m-3 my-5 px-3 pb-3">
         <div>
-        {% if request.user.is_authenticated %}
-            {{ request.user.username }}
-        {% else %}
-            Registrate o inicia sesión primero
-        {% endif %}
+            <a class="" href="{% url 'accounts:logout' %}">
+                Logout
+            </a>
         </div>
         <div>
-            <a href="{% url 'folders:folder-list' %}">Back</a>
+            <a class="border border-blue-500 rounded-lg p-1" href="{% url 'folders:folder-list' %}">
+                Back
+            </a>
         </div>
     </nav>
 

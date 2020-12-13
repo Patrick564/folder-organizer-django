@@ -66,7 +66,13 @@ class AddMissingView(LoginRequiredMixin, CreateView):
     model = Missing
     form_class = AddMissingForm
     template_name = 'add_missing.html'
-    success_url = '/'
+
+    def get_success_url(self):
+
+        return reverse(
+            'folders:missing-list',
+            kwargs={'pk': self.kwargs['pk']}
+        )
 
 
 class UpdateMissingView(LoginRequiredMixin, UpdateView):
@@ -75,7 +81,15 @@ class UpdateMissingView(LoginRequiredMixin, UpdateView):
         'guide',
     ]
     template_name = 'update_missing.html'
-    success_url = '/'
+
+    def get_success_url(self):
+        self.missing = self.get_object().folder
+        self.folder = Folder.objects.get(code=self.missing)
+
+        return reverse(
+            'folders:missing-list',
+            kwargs={'pk': self.folder.id}
+        )
 
 
 class DeleteMissingView(LoginRequiredMixin, DeleteView):

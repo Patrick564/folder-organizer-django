@@ -5,37 +5,52 @@
 {% block body_main %}
     <nav class="flex justify-between border-b-2 m-3 my-5 px-3 pb-3">
         <div>
-        {% if request.user.is_authenticated %}
-            {{ request.user.username }}
-        {% else %}
-            Registrate o inicia sesión primero
-        {% endif %}
+            <a class="" href="{% url 'accounts:logout' %}">
+                Logout
+            </a>
         </div>
         <div>
-            <a href="{% url 'folders:folder-list' %}">Back</a>
+            <a class="border border-blue-500 rounded-lg p-1" href="{% url 'folders:folder-list' %}">
+                Back
+            </a>
         </div>
     </nav>
 
     <main class="grid grid-cols-1 max-w-md m-5 mx-auto p-2">
         <div class="flex flex-col p-3 items-center border border-blue-500 rounded-lg">
-            <div class="flex flex-col p-3 justify-items border-b">
+            <div class="flex flex-col justify-items">
                 {% for missing in all_missing %}
-                    {{ missing }}
-                    <form action="{% url 'folders:delete-missing' missing.id %}" method="post">
-                        {% csrf_token %}
+                    <div class="border-b p-2">
+                        <form class="flex" action="{% url 'folders:update-missing' missing.id %}" id="update-form" method="post">
+                            {% csrf_token %}
 
-                        <button type="submit">
-                            Delete
-                        </button>
-                    </form>
+                            <label class="block p-2" for="guide">
+                                Guide:
+                                <input class="border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent w-2/3 px-1" type="text" name="guide" id="guide" value="{{ missing }}">
+                            </label>
 
+                            <button class="text-sm bg-blue-500 text-white border border-blue-500 rounded-lg my-1 p-1" class="text-right" type="submit">
+                                Update
+                            </button>
+                        </form>
+
+                        <form class="flex flex-row-reverse" action="{% url 'folders:delete-missing' missing.id %}" id="delete_form" method="post">
+                            {% csrf_token %}
+
+                            <button class="text-sm border border-red-500 rounded-lg p-1" type="submit">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
                 {% empty %}
-                    <p>Empty</p>
+                    <div class="m-3">
+                        <p>Empty</p>
+                    </div>
                 {% endfor %}
             </div>
 
-            <a href="{% url 'folders:update-missing' view.kwargs.pk %}" type="button">
-                Update
+            <a class="bg-green-500 text-white border border-green-500 rounded-lg mt-3 px-3 py-2" href="{% url 'folders:add-missing' view.kwargs.pk %}" type="button">
+                Add
             </a>
         </div>
     </main>

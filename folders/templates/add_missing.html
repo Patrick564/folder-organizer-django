@@ -3,13 +3,37 @@
 {% block title %}Add missing{% endblock %}
 
 {% block body_main %}
-    <form method="post">
-        {% csrf_token %}
+    <nav class="flex justify-between border-b-2 m-3 my-5 px-3 pb-3">
+        <div>
+            <a class="" href="{% url 'accounts:logout' %}">
+                Logout
+            </a>
+        </div>
+        <div>
+            <a class="border border-blue-500 rounded-lg p-1" href="{% url 'folders:missing-list' view.kwargs.pk %}">
+                Back
+            </a>
+        </div>
+    </nav>
 
-        <input type="hidden" value="{{ view.kwargs.pk }}" name="{{ form.folder.html_name }}">
-        <p>Guide</p>
-        <input type="text" name="guide">
+    <main class="grid grid-cols-1 max-w-md m-5 mx-auto p-2">
+        <div class="flex flex-col p-3 items-center border border-blue-500 rounded-lg">
+            <div class="flex flex-col p-3 justify-items">
+                <form method="post">
+                    {% csrf_token %}
 
-        <input type="submit" value="Submit">
-    </form>
+                    <input type="hidden" name="folder" value="{{ view.kwargs.pk }}">
+
+                    <label class="mx-3" for="guide">
+                        Guide:
+                        <input class="border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent px-1" name="guide" id="guide" type="text">
+                    </label>
+
+                    <button class="bg-green-500 text-white border border-green-500 rounded-lg mt-1 px-3 py-1" type="submit">
+                        Add
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
 {% endblock body_main %}
