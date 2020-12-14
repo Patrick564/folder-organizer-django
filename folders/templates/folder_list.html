@@ -65,4 +65,28 @@
             </div>
         {% endfor %}
     </main>
+
+    <footer class="static bottom-0 w-full">
+        <div class="flex justify-between m-3 p-2">
+            {% if page_obj.has_previous %}
+                <a class="text-white bg-indigo-500 border border-indigo-500 rounded-lg p-1" href="?page={{ page_obj.previous_page_number }}">
+                    Previus
+                </a>
+            {% else %}
+                <a class="text-white bg-indigo-500 border border-indigo-500 rounded-lg p-1" href="#">
+                    Previus
+                </a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a class="text-white bg-indigo-500 border border-indigo-500 rounded-lg p-1" href="?page={{ page_obj.next_page_number }}">
+                    Next
+                </a>
+            {% else %}
+                <a class="text-white bg-indigo-500 border border-indigo-500 rounded-lg p-1" href="#">
+                    Next
+                </a>
+            {% endif %}
+        </div>
+    </footer>
 {% endblock body_main %}
