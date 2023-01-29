@@ -1,7 +1,6 @@
 # Folder-organizer (Django)
 
 A page for organize multiple folders with specific fields as Name, Serie, Code, etc.
-See an example in Heroku [here](https://folder-organizer.herokuapp.com/)
 
 ## Instalation
 
